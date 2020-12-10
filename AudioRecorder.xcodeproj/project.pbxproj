@@ -18,7 +18,6 @@
 		137321482397B7D40049C7C8 /* AGFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137321472397B7D40049C7C8 /* AGFileManager.swift */; };
 		1373214A2397C3D20049C7C8 /* AGAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137321492397C3D20049C7C8 /* AGAudioPlayer.swift */; };
 		1373214C2397C6D40049C7C8 /* AGManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1373214B2397C6D40049C7C8 /* AGManager.swift */; };
-		13FD4523239E4E8100009E14 /* AGPlayerRecorderState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FD4522239E4E8100009E14 /* AGPlayerRecorderState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,7 +46,6 @@
 		137321472397B7D40049C7C8 /* AGFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AGFileManager.swift; sourceTree = "<group>"; };
 		137321492397C3D20049C7C8 /* AGAudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AGAudioPlayer.swift; sourceTree = "<group>"; };
 		1373214B2397C6D40049C7C8 /* AGManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AGManager.swift; sourceTree = "<group>"; };
-		13FD4522239E4E8100009E14 /* AGPlayerRecorderState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AGPlayerRecorderState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,7 +115,6 @@
 				137321452397B6B40049C7C8 /* AGAudioRecorder.swift */,
 				137321492397C3D20049C7C8 /* AGAudioPlayer.swift */,
 				137321472397B7D40049C7C8 /* AGFileManager.swift */,
-				13FD4522239E4E8100009E14 /* AGPlayerRecorderState.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -167,7 +164,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1100;
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = AshvinGudaliya;
 				TargetAttributes = {
 					1373211E2397B52F0049C7C8 = {
@@ -225,7 +222,6 @@
 			files = (
 				137321462397B6B40049C7C8 /* AGAudioRecorder.swift in Sources */,
 				1373214A2397C3D20049C7C8 /* AGAudioPlayer.swift in Sources */,
-				13FD4523239E4E8100009E14 /* AGPlayerRecorderState.swift in Sources */,
 				137321272397B5300049C7C8 /* ViewController.swift in Sources */,
 				137321232397B52F0049C7C8 /* AppDelegate.swift in Sources */,
 				1373214C2397C6D40049C7C8 /* AGManager.swift in Sources */,
@@ -298,6 +294,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -358,6 +355,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -392,7 +390,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = AudioRecorder/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -410,7 +408,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = AudioRecorder/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

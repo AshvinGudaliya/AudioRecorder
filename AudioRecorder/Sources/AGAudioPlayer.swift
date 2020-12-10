@@ -31,6 +31,10 @@ class AGAudioPlayer: NSObject {
         self.fileManager = fileManager
     }
     
+    var isPlaying: Bool {
+        return self.player?.isPlaying ?? false
+    }
+    
     //MARK: Audio Player Functions
     func preparePlay() {
         guard let fileManager = self.fileManager else {
@@ -52,32 +56,35 @@ class AGAudioPlayer: NSObject {
     func doPlay() {
         
         guard let player = player else { return }
-        
-        if !player.isPlaying {
-            player.play()
-        }
+        guard !player.isPlaying else { return }
+    
+        player.play()
         self.scheduleTimer()
         self.playerStateChangeHandler?(.play)
     }
     
     func doPause() {
         guard let player = player else { return }
-        
-        if player.isPlaying {
-            player.pause()
-        }
+        guard player.isPlaying else { return }
+
+        player.pause()
         self.timer?.invalidate()
         self.playerStateChangeHandler?(.pause)
     }
     
     func doStop() {
         guard let player = player else { return }
+        guard player.isPlaying else { return }
         
-        if player.isPlaying {
+        do {
             player.stop()
+            self.timer?.invalidate()
+            try AVAudioSession.sharedInstance().setActive(false)
+            timer?.invalidate()
+            self.playerStateChangeHandler?(.stop)
+        } catch {
+            playerStateChangeHandler?(.failed(error))
         }
-        self.timer?.invalidate()
-        self.playerStateChangeHandler?(.stop)
     }
     
     private func scheduleTimer() {
@@ -92,29 +99,22 @@ class AGAudioPlayer: NSObject {
 
         RunLoop.main.add(timer!, forMode: .common)
     }
-    
-    func cleanup() {
-        do {
-            try AVAudioSession.sharedInstance().setActive(false)
-            timer?.invalidate()
-        } catch {
-            playerStateChangeHandler?(.failed(error))
-        }
-    }
 }
 
 extension AGAudioPlayer: AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         if flag {
             self.playerStateChangeHandler?(.finish)
+        } else {
+            doStop()
         }
-        self.cleanup()
     }
     
     func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
         if let e = error {
             self.playerStateChangeHandler?(.failed(e))
+        } else {
+            doStop()
         }
-        self.cleanup()
     }
 }

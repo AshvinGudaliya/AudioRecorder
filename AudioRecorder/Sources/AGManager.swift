@@ -29,10 +29,25 @@ class AGManager: NSObject {
     
     private var recorder: AGAudioRecorder?
     private var player: AGAudioPlayer?
+    
+    var isRecording: Bool {
+        return self.recorder?.isRecording ?? false
+    }
+    
+    var isPlaying: Bool {
+        return self.player?.isPlaying ?? false
+    }
 
     init(withFileManager fileManager: AGFileManager) {
         self.fileManager = fileManager
         super.init()
+    }
+    
+    func newRecoding(fileManager: AGFileManager) {
+        self.fileManager = fileManager
+        recorder?.doStop()
+        player?.doStop()
+        self.initialize()
     }
     
     func checkRecordPermission() {
@@ -41,7 +56,7 @@ class AGManager: NSObject {
         case .granted:
             DispatchQueue.main.async {
                 self.delegate?.recorderAndPlayer(self, withStates: .granted)
-                self.configuration()
+                self.initialize()
             }
             break
         case .denied:
@@ -77,7 +92,7 @@ class AGManager: NSObject {
         }
     }
     
-    private func configuration() {
+    private func initialize() {
         self.recorder = AGAudioRecorder(withFileManager: fileManager)
         self.player = AGAudioPlayer(withFileManager: fileManager)
         

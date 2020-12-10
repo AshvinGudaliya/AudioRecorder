@@ -12,11 +12,9 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var btnRecord: UIButton!
     @IBOutlet weak var btnPlayer: UIButton!
+    @IBOutlet weak var btnReset: UIButton!
     
     let audioManager: AGManager = AGManager(withFileManager: AGFileManager(withFileName: nil))
-    
-    var isRecording: Bool = false
-    var isPlaying: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,8 +23,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func redordingAction(_ sender: UIButton) {
-        if !isRecording {
-            isRecording = true
+        if !self.audioManager.isRecording {
             self.audioManager.recordStart()
         } else {
             self.audioManager.stopRecording()
@@ -34,12 +31,17 @@ class ViewController: UIViewController {
     }
     
     @IBAction func playingAction(_ sender: UIButton) {
-        if !isPlaying {
-            isPlaying = false
+        if !self.audioManager.isPlaying {
             self.audioManager.startPalyer()
         } else {
             self.audioManager.stopPlaying()
         }
+    }
+    
+    @IBAction func resetAction(_ sender: UIButton) {
+        audioManager.newRecoding(fileManager: AGFileManager(withFileName: nil))
+        btnRecord.isEnabled = true
+        btnPlayer.isEnabled = false
     }
 }
 
@@ -48,17 +50,19 @@ extension ViewController: AGManagerDelegate {
         switch state {
         case .undetermined:
             break
+            
         case .granted:
             btnRecord.setTitle("Initialize Recorder", for: .normal)
             btnPlayer.setTitle("Initialize Player", for: .normal)
+            btnRecord.isEnabled = true
+            btnPlayer.isEnabled = false
+            
         case .denied:
             break
             
         case .error(let erro):
             print(erro.localizedDescription)
         }
-        btnRecord.isEnabled = false
-        btnPlayer.isEnabled = false
     }
     
     func recorderAndPlayer(_ recoder: AGAudioRecorder, withStates state: AGRecorderState) {
@@ -106,9 +110,7 @@ extension ViewController: AGManagerDelegate {
             btnPlayer.setTitle("Stop Playing", for: .normal)
             
         case .finish:
-            btnRecord.setTitle("Start New Recording", for: .normal)
-            btnPlayer.setTitle("Playing Finished", for: .normal)
-            btnRecord.isEnabled = true
+            btnPlayer.setTitle("Play again", for: .normal)
             
         case .failed(let error):
             btnRecord.setTitle(error.localizedDescription, for: .normal)
